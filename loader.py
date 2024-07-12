@@ -28,9 +28,9 @@ def load_movies(file_path):
                     MessageBody=movie['Title']
                 )
                 print(f"Sent {movie['Title']} to SQS, MessageID: {response['MessageId']}")
-    except FileNotFoundError:
+    except FileNotFoundError as file_not_found_error:
         print(f"File not found: {file_path}")
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as json_error:
         print(f"Error decoding JSON from file: {file_path}")
     except Exception as generic_error:
         print(f"An error occurred: {generic_error}")
