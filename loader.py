@@ -1,3 +1,7 @@
+"""
+Loader Module
+This module handles loading environment variables, reading movies from a file, and sending them to an SQS queue.
+"""
 import json
 import os
 from dotenv import load_dotenv
@@ -29,9 +33,9 @@ def load_movies(file_path):
         print(f"File not found: {file_path}")
     except json.JSONDecodeError:
         print(f"Error decoding JSON from file: {file_path}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    except Exception as Error:
+        print(f"An error occurred: {Error}")
 
-        
+
 if __name__ == "__main__":
     load_movies('movies.json')

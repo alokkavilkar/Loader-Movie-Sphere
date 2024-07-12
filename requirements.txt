@@ -1,3 +1,4 @@
 dotenv
 boto3
 pylint
+python-dotenv
