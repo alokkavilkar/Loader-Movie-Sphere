@@ -16,7 +16,6 @@ queue_url = os.getenv('SQS_URL')
 def load_movies(file_path):
     """
     Load movies from a JSON file and send each movie title to an SQS queue.
-
     Args:
         file_path (str): The path to the JSON file containing movie data.
     """
