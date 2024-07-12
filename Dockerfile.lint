@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt .
 COPY loader.py /app/
-RUN pip install -r requirements.txt
+RUN grep -v 'dotenv' requirements.txt > requirements_exclude.txt
+RUN pip install -r requirements_exclude.txt
 
 ENTRYPOINT [ "pylint" ]
 

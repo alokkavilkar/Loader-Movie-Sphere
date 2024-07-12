@@ -1,7 +1,7 @@
-import boto3
 import json
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
+import boto3
 
 load_dotenv()
 
@@ -10,14 +10,28 @@ sqs = boto3.client('sqs', region_name='us-east-1')
 queue_url = os.getenv('SQS_URL')
 
 def load_movies(file_path):
-    with open(file_path, 'r') as file:
-        movies = json.load(file)
-        for movie in movies:
-            response = sqs.send_message(
-                QueueUrl=queue_url,
-                MessageBody=movie['Title']
-            )
-            print("Sent {} to SQS, MessageID: {}".format(movie['Title'], response['MessageId']))
+    """
+    Load movies from a JSON file and send each movie title to an SQS queue.
 
+    Args:
+        file_path (str): The path to the JSON file containing movie data.
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            movies = json.load(file)
+            for movie in movies:
+                response = sqs.send_message(
+                    QueueUrl=queue_url,
+                    MessageBody=movie['Title']
+                )
+                print(f"Sent {movie['Title']} to SQS, MessageID: {response['MessageId']}")
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+    except json.JSONDecodeError:
+        print(f"Error decoding JSON from file: {file_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+        
 if __name__ == "__main__":
     load_movies('movies.json')
