@@ -4,8 +4,12 @@ WORKDIR /app
 
 COPY test_loader.py /app/
 
+RUN pip install pylint
+
 COPY movies.json /app/
+
 
 ENTRYPOINT [ "python3" ]
 
 CMD [ "test_loader.py" ]
+
