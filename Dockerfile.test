@@ -1,0 +1,11 @@
+FROM python:3.7.3
+
+WORKDIR /app
+
+COPY test_loader.py /app/
+
+COPY movies.json /app/
+
+ENTRYPOINT [ "python3" ]
+
+CMD [ "test_loader.py" ]
