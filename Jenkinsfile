@@ -1,6 +1,4 @@
-def imageName = "alokkavilkar/test_loader"
-
-node('workers'){
+node('worker'){
  	stage('Checkout'){
 	 checkout scm
 	}
