@@ -1,6 +1,6 @@
 """
 Loader Module
-This module handles loading environment variables, reading movies from a file, and sending them to an SQS queue.
+Module for Loader package.
 """
 import json
 import os
@@ -33,8 +33,8 @@ def load_movies(file_path):
         print(f"File not found: {file_path}")
     except json.JSONDecodeError:
         print(f"Error decoding JSON from file: {file_path}")
-    except Exception as Error:
-        print(f"An error occurred: {Error}")
+    except Exception as generic_error:
+        print(f"An error occurred: {generic_error}")
 
 
 if __name__ == "__main__":
