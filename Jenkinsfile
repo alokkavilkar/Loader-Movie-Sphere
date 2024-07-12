@@ -10,4 +10,10 @@ node('worker'){
 		sh "docker run --rm ${imageName}-test"
 	}
 
+	stage("Security Test"){
+		sh "docker build -t ${imageName}-lint -f Dockerfile.lint ."
+
+		sh "docker run --rm ${imageName}-lint"
+	}
+
 }
