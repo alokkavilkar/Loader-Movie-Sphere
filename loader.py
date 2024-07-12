@@ -31,7 +31,8 @@ def load_movies(file_path):
     except FileNotFoundError:
         print(f"File not found: {file_path}")
     except Exception as general_e:
-        print(f"An error occurred: {general_e}")
+        # print(f"An error occurred: {general_e}")
+        pass
 
 
 if __name__ == "__main__":
