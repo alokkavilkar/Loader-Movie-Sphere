@@ -7,5 +7,5 @@ COPY security.txt /app/
 RUN pip install -r security.txt
 
 
-CMD ["bandit", "-r loader.py"]
+CMD ["bandit", "-r", "loader.py"]
 
