@@ -7,7 +7,7 @@ node('worker'){
 	stage("Unit test"){
 		def image = docker.build("${imageName}", "-f Dockerfile.test .")
 		image.inside(
-			sh "python test_loader.py"
+			sh 'python test_loader.py'
 		)
 	}
 
@@ -17,7 +17,7 @@ node('worker'){
 		// sh "docker run --rm ${imageName}-lint"
 
 		image.inside(
-			sh "pylint loader.py"
+			sh 'pylint loader.py'
 		)
 	}
 
