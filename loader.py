@@ -10,12 +10,19 @@ import boto3
 load_dotenv()
 
 # SQS configuration
-sqs = boto3.client('sqs', region_name='us-east-1', 
-                   aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-                    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
-ssm = boto3.client('ssm', region_name='us-east-1', 
-                   aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-                    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+sqs = boto3.client(
+    'sqs', 
+    region_name='us-east-1',               
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+
+ssm = boto3.client(
+    'ssm', 
+    region_name='us-east-1',                
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+
+
 # queue_url = os.getenv('SQS_URL')
 
 
