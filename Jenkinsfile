@@ -5,9 +5,8 @@ node('worker'){
 	}
 
 	stage("Unit test"){
-		sh "docker build -t ${imageName}-test -f Dockerfile.test ."
-
-		sh "docker run --rm ${imageName}-test"
+		docker.build("${imageName}", "-f Dockerfile.test .")
+		sh "docker run --rm ${imageName}"
 	}
 
 	stage("Security Test"){
