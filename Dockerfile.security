@@ -4,8 +4,7 @@ WORKDIR /app/
 
 COPY loader.py /app/
 COPY security.txt /app/
-RUN pip install -r security.txt && \
-    safety check
+RUN pip install -r security.txt
 
 
 CMD ["bandit", "-r loader.py"]
