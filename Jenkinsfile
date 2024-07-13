@@ -11,7 +11,7 @@ node('worker'){
 		}
 	}
 
-	stage("Security Test"){
+	stage("Quality Test"){
 		// sh "docker build -t ${imageName}-lint -f Dockerfile.lint ."
 
 		// sh "docker run --rm ${imageName}-lint"
