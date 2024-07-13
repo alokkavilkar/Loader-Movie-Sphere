@@ -28,7 +28,7 @@ node('worker'){
 			'Security Test' :{
 				sh "docker build -t ${imageName}-security -f Dockerfile.security ."
 
-				sh "docker run --rm ${imageName}-security"
+				sh "docker run --rm ${imageName}-security -e AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"
 			}
 		)
 	}
