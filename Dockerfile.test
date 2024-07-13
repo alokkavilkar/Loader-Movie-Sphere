@@ -5,6 +5,7 @@ WORKDIR /app
 COPY test_loader.py /app/
 COPY loader.py /app/
 COPY movies.json /app/
+COPY requirements.txt /app/
 
-RUN pip install pylint
+RUN pip install -r requirements.txt
 
