@@ -4,8 +4,8 @@ node('worker'){
 	 checkout scm
 	}
 
+	def image = docker.build("${imageName}", "-f Dockerfile.test .")
 	stage("Unit test"){
-		def image = docker.build("${imageName}", "-f Dockerfile.test .")
 		image.inside{
 			sh 'python test_loader.py'
 		}
