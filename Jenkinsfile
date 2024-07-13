@@ -5,25 +5,47 @@ node('worker'){
 	}
 
 	def image = docker.build("${imageName}", "-f Dockerfile.test .")
-	stage("Unit test"){
-		image.inside{
-			sh 'python test_loader.py'
-		}
+	stage("pre-integration tests")
+	{
+		parallel(
+			'Quality Tests': {
+				image.inside{
+					sh 'pylint loader.py'
+				}
+			},
+
+			'Unit Test' : {
+				image.inside{
+					sh 'python test_loader.py '
+				}
+			},
+
+			'Security Test' :{
+				sh "docker build -t ${imageName}-security -f Dockerfile.security ."
+
+				sh "docker run --rm ${imageName}-security"
+			}
+		)
 	}
+	// stage("Unit test"){
+	// 	image.inside{
+	// 		sh 'python test_loader.py'
+	// 	}
+	// }
 
-	stage("Quality Test"){
-		// sh "docker build -t ${imageName}-lint -f Dockerfile.lint ."
+	// stage("Quality Test"){
+	// 	// sh "docker build -t ${imageName}-lint -f Dockerfile.lint ."
 
-		// sh "docker run --rm ${imageName}-lint"
+	// 	// sh "docker run --rm ${imageName}-lint"
 
-		image.inside{
-			sh 'pylint loader.py'
-		}
-	}
+	// 	image.inside{
+	// 		sh 'pylint loader.py'
+	// 	}
+	// }
 
-	stage("Security Test"){
-		sh "docker build -t ${imageName}-security -f Dockerfile.security ."
-		sh "docker run --rm ${imageName}-security"
-	}
+	// stage("Security Test"){
+	// 	sh "docker build -t ${imageName}-security -f Dockerfile.security ."
+	// 	sh "docker run --rm ${imageName}-security"
+	// }
 
 }
