@@ -1,5 +1,10 @@
 def imageName = "alokkavilkar/unit-test"
 node('worker'){
+
+	env.AWS_ACCESS_KEY_ID = credentials('aws-access-key')
+	env.AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
+	env.AWS_REGION = 'us-east-1'
+
  	stage('Checkout'){
 	 checkout scm
 	}
@@ -30,7 +35,7 @@ node('worker'){
 
 	stage("Build"){
 		sh "docker build -t alokkavilkar/loader-micro -f Dockerfile ."
-		
+		sh "docker run --rm alokkavilkar/loader-micro"
 	}
 	// stage("Unit test"){
 	// 	image.inside{

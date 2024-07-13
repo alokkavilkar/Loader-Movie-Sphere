@@ -8,10 +8,9 @@ COPY requirements.txt /app/
 COPY loader.py /app/
 COPY movies.json /app/
 
-RUN pip install --no-cache-dir -r requirements.txt && \
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
-    unzip awscliv2.zip && \
-    ./aws/install 
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["python", "loader.py"]
 
 
 
