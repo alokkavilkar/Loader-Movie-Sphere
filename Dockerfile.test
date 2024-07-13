@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY test_loader.py /app/
 
-RUN pip install pylint
-
 COPY movies.json /app/
 
 

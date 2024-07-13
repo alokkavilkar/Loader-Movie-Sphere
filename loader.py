@@ -32,8 +32,6 @@ def load_movies(file_path):
         print(f"File not found: {file_path}")
     except json.JSONDecodeError:
         print(f"Error decoding JSON from file: {file_path}")
-    
-
 
 if __name__ == "__main__":
     load_movies('movies.json')
