@@ -3,7 +3,6 @@ Loader Module
 Module for Loader package.
 """
 import json
-import os
 from dotenv import load_dotenv
 import boto3
 
@@ -13,8 +12,8 @@ load_dotenv()
 sqs = boto3.client('sqs', region_name='us-east-1')
 ssm = boto3.client('ssm', region_name='us-east-1')
 # queue_url = os.getenv('SQS_URL')
-response = ssm.get_parameter(Name='SQS_URL', WithDecryption=True)
-queue_url = response['Parameter']['Value']
+queue_url = ssm.get_parameter(Name='SQS_URL', WithDecryption=True)['Parameter']['Value']
+
 
 def load_movies(file_path):
     """
