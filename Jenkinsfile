@@ -27,6 +27,11 @@ node('worker'){
 			}
 		)
 	}
+
+	stage("Build"){
+		sh "docker build -t alokkavilkar/loader-micro -f Dockerfile ."
+		
+	}
 	// stage("Unit test"){
 	// 	image.inside{
 	// 		sh 'python test_loader.py'

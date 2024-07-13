@@ -11,7 +11,10 @@ load_dotenv()
 
 # SQS configuration
 sqs = boto3.client('sqs', region_name='us-east-1')
-queue_url = os.getenv('SQS_URL')
+ssm = boto3.client('ssm', region_name='us-east-1')
+# queue_url = os.getenv('SQS_URL')
+response = ssm.get_parameter(Name='SQS_URL', WithDecryption=True)
+queue_url = response['Parameter']['Value']
 
 def load_movies(file_path):
     """
