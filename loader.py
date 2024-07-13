@@ -12,7 +12,7 @@ load_dotenv()
 sqs = boto3.client('sqs', region_name='us-east-1')
 ssm = boto3.client('ssm', region_name='us-east-1')
 # queue_url = os.getenv('SQS_URL')
-queue_url = ssm.get_parameter(Name='SQS_URL', WithDecryption=True)['Parameter']['Value']
+
 
 
 def load_movies(file_path):
@@ -21,6 +21,7 @@ def load_movies(file_path):
     Args:
         file_path (str): The path to the JSON file containing movie data.
     """
+    queue_url = ssm.get_parameter(Name='SQS_URL', WithDecryption=True)['Parameter']['Value']
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             movies = json.load(file)
