@@ -21,4 +21,9 @@ node('worker'){
 		}
 	}
 
+	stage("Security Test"){
+		sh "docker build -t ${imageName}-security -f Dockerfile.security ."
+		sh "docker run --rm ${imageName}-security"
+	}
+
 }

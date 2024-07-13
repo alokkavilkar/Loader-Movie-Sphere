@@ -1,0 +1,12 @@
+FROM python:3.7.3
+
+WORKDIR /app/
+
+COPY loader.py /app/
+COPY security.txt /app/
+RUN pip install -r security.txt && \
+    safety check
+
+
+CMD ["bandit", "-r loader.py"]
+
