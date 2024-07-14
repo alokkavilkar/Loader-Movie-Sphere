@@ -57,6 +57,7 @@ node('worker'){
 			sh "echo ${AWS_ECR_KEY} | docker login --username AWS --password-stdin ${registry}"
 			sh "echo Login success."
 			sh "docker tag ${buildName} ${registry}/${buildName}:${env.BUILD_ID}"
+			sh "docker push ${registry}/${buildName}:${env.BUILD_ID}"
 		}
 		// stage("Unit test"){
 		// 	image.inside{
