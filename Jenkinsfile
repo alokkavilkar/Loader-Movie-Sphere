@@ -1,4 +1,5 @@
 def imageName = "alokkavilkar/unit-test"
+def buildName = "alokkavilkar/loader"
 node('worker'){
 
 	env.AWS_ACCESS_KEY_ID = credentials('aws-access-key')
@@ -28,14 +29,16 @@ node('worker'){
 			'Security Test' :{
 				sh "docker build -t ${imageName}-security -f Dockerfile.security ."
 
-				sh "docker run --rm ${imageName}-security -e AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"
+				sh "docker run --rm ${imageName}-security"
 			}
 		)
 	}
 
 	stage("Build"){
 		sh "docker build -t alokkavilkar/loader-micro -f Dockerfile ."
-		sh "docker run --rm alokkavilkar/loader-micro"
+		sh "docker run --rm ${builName} 
+		-e AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}
+		-e AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"
 	}
 	// stage("Unit test"){
 	// 	image.inside{
