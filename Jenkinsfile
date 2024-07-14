@@ -4,9 +4,7 @@ node('worker'){
 
 	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
 
-		env.AWS_ACCESS_KEY_ID = credentials('aws-access-key')
-		env.AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
-		env.AWS_REGION = 'us-east-1'
+		env.alok = 'Alok'
 
 		stage('Checkout'){
 		checkout scm
