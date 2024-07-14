@@ -36,7 +36,7 @@ node('worker'){
 
 	stage("Build"){
 		sh "docker build -t alokkavilkar/loader-micro -f Dockerfile ."
-		sh "docker run --rm ${builName} 
+		sh "docker run --rm ${buildName}
 		-e AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}
 		-e AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"
 	}
