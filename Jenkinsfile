@@ -72,7 +72,7 @@ node('worker'){
 
 			sh "docker tag ${buildName} ${private_registry}/${buildName}:${commitID()}"
 
-			sh "docker push ${private_registry}/${buildName}:${commitID()}"
+			sh "docker push ${private_registry}/${buildName}:${env.BUILD_ID}"
 
 		}
 		// stage("Unit test"){
