@@ -1,10 +1,13 @@
 def imageName = "alokkavilkar/unit-test"
 def buildName = "alokkavilkar/loader"
+def registry = "public.ecr.aws/l9r7x6m1"
+
 node('worker'){
 
 	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
 
 		env.alok = 'Alok'
+		env.PASSWORD_ECR = credentials('aws-ecr-pass')
 
 		stage('Check All Environment Variables') {
 			// Use a shell command to print all environment variables
@@ -48,6 +51,12 @@ node('worker'){
                 -e AWS_REGION=${env.AWS_REGION} \
                 ${buildName}
             """
+		}
+
+		stage("Push")
+		{
+			sh "echo ${env.PASSWORD_ECR} | docker login --username AWS --password-stdin ${registry}"
+			sh "echo Login success."
 		}
 		// stage("Unit test"){
 		// 	image.inside{
