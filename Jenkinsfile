@@ -12,7 +12,7 @@ def commitID() {
 
 node('worker'){
 
-	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY'), string(credentialsId: 'aws-ecr-key', variable: 'AWS_ECR_KEY'), string(credentialsId: 'aws-ecr-pass-private', variable: 'AWS_ECR_PRIVATE'), [$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
+	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY'), string(credentialsId: 'aws-ecr-key', variable: 'AWS_ECR_KEY'), string(credentialsId: 'aws-ecr-pass-private', variable: 'AWS_ECR_PRIVATE'), [$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-ecr-credentials']]) {
 
 		env.alok = 'Alok'
 
