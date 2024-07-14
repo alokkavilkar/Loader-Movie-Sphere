@@ -70,7 +70,7 @@ node('worker'){
 			// 	docker.image(buildName).push(commitID())
 			// }
 
-			sh "docker tag ${buildName} ${private_registry}/${buildName}:${commitID()}"
+			sh "docker tag ${buildName} ${private_registry}/${buildName}:${env.BUILD_ID}"
 
 			sh "docker push ${private_registry}/${buildName}:${env.BUILD_ID}"
 
