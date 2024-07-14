@@ -1,7 +1,7 @@
 def imageName = "alokkavilkar/unit-test"
 def buildName = "alokkavilkar/loader"
-def registry = "public.ecr.aws/l9r7x6m1"
-def private_registry = "058264318784.dkr.ecr.us-east-1.amazonaws.com"
+// def registry = "public.ecr.aws/l9r7x6m1"
+def registry = "058264318784.dkr.ecr.us-east-1.amazonaws.com"
 
 def commitID() {
 	sh 'git rev-parse HEAD > .git/commitID'
@@ -64,7 +64,7 @@ node('worker'){
 		{
 			sh "echo ${AWS_ECR_PRIVATE} | docker login --username AWS --password-stdin ${private_registry}"
 			sh "echo Login success."
-			docker.withRegistry(private_registry, 'registry'){
+			docker.withRegistry(registry, 'registry'){
 				docker.image(imageName).push(commitID())
 			}
 		}
