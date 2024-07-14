@@ -4,10 +4,9 @@ def registry = "public.ecr.aws/l9r7x6m1"
 
 node('worker'){
 
-	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY'), string(credentialsId: 'aws-ecr-key', variable: 'AWS_ECR_KEY')]) {
 
 		env.alok = 'Alok'
-		env.PASSWORD_ECR = credentials('aws-ecr-pass')
 
 		stage('Check All Environment Variables') {
 			// Use a shell command to print all environment variables
@@ -55,8 +54,9 @@ node('worker'){
 
 		stage("Push")
 		{
-			sh "echo ${env.PASSWORD_ECR} | docker login --username AWS --password-stdin ${registry}"
+			sh "echo ${AWS_ECR_KEY} | docker login --username AWS --password-stdin ${registry}"
 			sh "echo Login success."
+			sh "docker tag ${buildName} ${registry}/${buildName}:${env.BUILD_ID}"
 		}
 		// stage("Unit test"){
 		// 	image.inside{
