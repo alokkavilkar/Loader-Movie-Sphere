@@ -1,10 +1,11 @@
 def imageName = "alokkavilkar/unit-test"
 def buildName = "alokkavilkar/loader"
 def registry = "public.ecr.aws/l9r7x6m1"
+def private_registry = "058264318784.dkr.ecr.us-east-1.amazonaws.com"
 
 node('worker'){
 
-	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY'), string(credentialsId: 'aws-ecr-key', variable: 'AWS_ECR_KEY')]) {
+	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY'), string(credentialsId: 'aws-ecr-key', variable: 'AWS_ECR_KEY'), string(credentialsId: 'aws-ecr-pass-private', variable: 'AWS_ECR_PRIVATE')]) {
 
 		env.alok = 'Alok'
 
@@ -54,10 +55,10 @@ node('worker'){
 
 		stage("Push")
 		{
-			sh "echo ${AWS_ECR_KEY} | docker login --username AWS --password-stdin ${registry}"
+			sh "echo ${AWS_ECR_PRIVATE} | docker login --username AWS --password-stdin ${private_registry}"
 			sh "echo Login success."
-			sh "docker tag ${buildName} ${registry}/${buildName}:${env.BUILD_ID}"
-			sh "docker push ${registry}/${buildName}:${env.BUILD_ID}"
+			sh "docker tag ${buildName} ${private_registry}/${buildName}:${env.BUILD_ID}"
+			sh "docker push ${private_registry}/${buildName}:${env.BUILD_ID}"
 		}
 		// stage("Unit test"){
 		// 	image.inside{
