@@ -6,6 +6,11 @@ node('worker'){
 
 		env.alok = 'Alok'
 
+		stage('Check All Environment Variables') {
+			// Use a shell command to print all environment variables
+			sh 'printenv | grep alok'
+    	}
+
 		stage('Checkout'){
 		checkout scm
 		}
