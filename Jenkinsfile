@@ -64,9 +64,9 @@ node('worker'){
 		{
 			sh "echo ${AWS_ECR_PRIVATE} | docker login --username AWS --password-stdin ${private_registry}"
 			sh "echo Login success."
-			docker.withRegistry(registry, 'registry'){
-				docker.image(imageName).push(commitID())
-			}
+			docker.image(imageName).push(commitID)
+
+			
 		}
 		// stage("Unit test"){
 		// 	image.inside{
