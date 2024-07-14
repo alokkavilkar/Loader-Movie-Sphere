@@ -65,7 +65,7 @@ node('worker'){
 			sh "echo ${AWS_ECR_PRIVATE} | docker login --username AWS --password-stdin ${private_registry}"
 			sh "echo Login success."
 			
-			docker.withRegistry(private_registry, 'aws-ecr-credentials')
+			docker.withRegistry(private_registry, "ecr:eu-central-1:" + 'aws-ecr-credentials')
 			{
 				docker.image(buildName).push(commitID())
 			}
