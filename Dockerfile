@@ -1,4 +1,4 @@
-FROM python:3.7.3
+FROM python:3.9-alpine3.17
 LABEL maintainer = "alokkavilkar"
 LABEL description ="Dockerfile for artifact from loader microservice."
 
