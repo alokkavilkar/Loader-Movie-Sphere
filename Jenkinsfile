@@ -1,7 +1,7 @@
 def imageName = "alokkavilkar/unit-test"
 def buildName = "alokkavilkar/loader"
 // def registry = "public.ecr.aws/l9r7x6m1"
-def registry = "058264318784.dkr.ecr.us-east-1.amazonaws.com"
+def private_registry = "058264318784.dkr.ecr.us-east-1.amazonaws.com"
 
 def commitID() {
 	sh 'git rev-parse HEAD > .git/commitID'
@@ -66,7 +66,7 @@ node('worker'){
 			sh "echo Login success."
 			docker.image(imageName).push(commitID)
 
-			
+
 		}
 		// stage("Unit test"){
 		// 	image.inside{
