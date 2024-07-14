@@ -65,11 +65,14 @@ node('worker'){
 			sh "echo ${AWS_ECR_PRIVATE} | docker login --username AWS --password-stdin ${private_registry}"
 			sh "echo Login success."
 			
-			docker.withRegistry(private_registry, "ecr:us-east-1:" + 'aws-ecr-credentials')
-			{
-				docker.image(buildName).push(commitID())
-			}
+			// docker.withRegistry(private_registry, "ecr:us-east-1:" + 'aws-ecr-credentials')
+			// {
+			// 	docker.image(buildName).push(commitID())
+			// }
 
+			sh "docker tag ${buildName} ${private_registry}/${buildName}:${commitID()}"
+
+			sh "docker push ${private_registry}/${buildName}:${commitID()}"
 
 		}
 		// stage("Unit test"){
