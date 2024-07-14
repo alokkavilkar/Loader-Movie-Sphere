@@ -12,7 +12,7 @@ def commitID() {
 
 node('worker'){
 
-	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY'), string(credentialsId: 'aws-ecr-key', variable: 'AWS_ECR_KEY'), string(credentialsId: 'aws-ecr-pass-private', variable: 'AWS_ECR_PRIVATE')]) {
+	withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY'), string(credentialsId: 'aws-ecr-key', variable: 'AWS_ECR_KEY'), string(credentialsId: 'aws-ecr-pass-private', variable: 'AWS_ECR_PRIVATE'), [$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
 
 		env.alok = 'Alok'
 
@@ -65,7 +65,7 @@ node('worker'){
 			sh "echo ${AWS_ECR_PRIVATE} | docker login --username AWS --password-stdin ${private_registry}"
 			sh "echo Login success."
 			
-			docker.withRegistry(private_registry, 'registry')
+			docker.withRegistry(private_registry, 'aws-ecr-credentials')
 			{
 				docker.image(buildName).push(commitID())
 			}
