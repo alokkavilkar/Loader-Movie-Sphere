@@ -1,4 +1,5 @@
 def imageName = 'alokkavilkar/loader'
+
 pipeline {
     agent {
         label 'worker'
@@ -9,6 +10,10 @@ pipeline {
             steps{
                 script{
                     sh "echo ${imageName}"
+                }
+
+                script{
+                    sh "echo ${imageName}/loader-echo"
                 }
             }
         }
