@@ -16,6 +16,12 @@ pipeline {
                     sh "echo ${imageName}/loader-echo"
                 }
             }
+
+            steps{
+                script{
+                    sh "echo ${imageName}-2"
+                }
+            }
         }
     }
 }
