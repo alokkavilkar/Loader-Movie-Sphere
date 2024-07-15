@@ -14,7 +14,7 @@ pipeline {
         stage('unit test'){
             steps{
                 script{
-                    sh "echo ${imageName_PSW}  ${ssh_key_USR} ${ssh_key_PSW}"
+                    sh "echo ${imageName_PSW}  ${ssh_key_USR} ${ssh_key_KEY}"
                 }
                 script{
                     sh "echo ${imageName_USR}/loader-echo"
