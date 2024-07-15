@@ -1,4 +1,4 @@
-def imageName = 'alokkavilkar/loader'
+// def imageName = 'alokkavilkar/loader'
 
 pipeline {
     agent {
