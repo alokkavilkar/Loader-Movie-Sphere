@@ -7,6 +7,7 @@ pipeline {
 
     environment {
         imageName = credentials('github')
+        EXAMPLE_KEY = credentials('aws-secret-key') 
     }
 
     parameters {
@@ -19,6 +20,7 @@ pipeline {
                 script{
                     sh 'echo $imageName_PSW'
                     sh 'echo ${STATEMENT}'
+                    sh 'echo ${EXAMPLE_KEY}'
                 }
                 script{
                     sh "echo ${imageName_USR}/loader-echo"
