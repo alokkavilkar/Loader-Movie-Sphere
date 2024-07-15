@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        imageName = credentials('aws-access-key')
+        imageName = credentials('vagrant')
     }
 
     stages {
