@@ -13,10 +13,10 @@ pipeline {
         stage('unit test'){
             steps{
                 script{
-                    sh "echo ${imageName}"
+                    sh "echo ${imageName_PSW}"
                 }
                 script{
-                    sh "echo ${imageName}/loader-echo"
+                    sh "echo ${imageName_USR}/loader-echo"
                 }
             }
         }
