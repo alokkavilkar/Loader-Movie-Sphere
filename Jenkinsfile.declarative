@@ -28,7 +28,7 @@ pipeline {
                     sh "echo ${imageName}-0"
                 }
 
-                withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'username', passwordVariable: 'password')])
+                withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
                 {
                     script{
                         sh "echo ${usernameVariable}"
