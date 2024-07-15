@@ -5,6 +5,10 @@ pipeline {
         label 'worker'
     }
 
+    environments {
+        imageName = credentials('aws-access-key')
+    }
+
     stages {
         stage('unit test'){
             steps{
