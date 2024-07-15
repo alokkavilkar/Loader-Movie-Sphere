@@ -5,7 +5,7 @@ pipeline {
         label 'worker'
     }
 
-    environments {
+    environment {
         imageName = credentials('aws-access-key')
     }
 
