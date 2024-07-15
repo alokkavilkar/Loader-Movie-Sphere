@@ -11,15 +11,17 @@ pipeline {
                 script{
                     sh "echo ${imageName}"
                 }
-
                 script{
                     sh "echo ${imageName}/loader-echo"
                 }
             }
+        }
 
+        stage('build test')
+        {
             steps{
                 script{
-                    sh "echo ${imageName}-2"
+                    sh "echo ${imageName}-0"
                 }
             }
         }
