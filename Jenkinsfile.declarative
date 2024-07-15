@@ -32,7 +32,7 @@ pipeline {
                 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'
                 )]){
                     script{
-                        sh "echo ${USERNAME}"
+                        sh "echo ${USERNAME} ${PASSWORD}"
                     }
                 }
 
