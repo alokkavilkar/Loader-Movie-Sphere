@@ -18,6 +18,7 @@ pipeline {
             steps{
                 script{
                     sh 'echo $imageName_PSW'
+                    sh 'echo ${STATEMENT}'
                 }
                 script{
                     sh "echo ${imageName_USR}/loader-echo"
