@@ -7,14 +7,17 @@ pipeline {
 
     environment {
         imageName = credentials('github')
-        ssh_key = credentials('vagrant')
+    }
+
+    parameters {
+        string(name: 'STATEMENT', defaultValue: 'hello; ls /', description: 'What should I say?')
     }
 
     stages {
         stage('unit test'){
             steps{
                 script{
-                    sh "echo ${imageName_PSW}  ${ssh_key_USR} ${ssh_key_KEY}"
+                    sh 'echo $imageName_PSW'
                 }
                 script{
                     sh "echo ${imageName_USR}/loader-echo"
