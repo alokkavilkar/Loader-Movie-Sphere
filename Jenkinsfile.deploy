@@ -1,5 +1,7 @@
 pipeline{
-    agent any
+    agent {
+        label 'worker'
+    }
 
     environment{
         MANAGER_IP = '192.168.61.55'
