@@ -1,0 +1,23 @@
+pipeline{
+    agent{
+        label 'worker'
+    }
+
+    environment{
+        MANAGER_IP = '192.168.61.55'
+    }
+
+    stages{
+        stage("deploy")
+        {
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId:'ssh-key', keyFileVariable: 'SSH_KEY')])
+                {
+                    script{
+                        sh 'echo $SSH_KEY'
+                    }
+                }
+            }
+        }
+    }
+}
