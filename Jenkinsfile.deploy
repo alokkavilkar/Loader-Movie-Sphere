@@ -10,10 +10,14 @@ pipeline{
         stage('copy')
         {
             steps{
-                withCredentials([sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY')])
+                withCredentials([sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')])
                 {
                     script{
-                        powershell 'scp -o StrictHostKeyChecking=no deploy-compose.yml vagrant@${MANAGER_IP}:/home/vagrant/deployment'
+                        powershell """
+                        \$env:SSH_KEY = '${SSH_KEY}'
+                        \$env:SSH_USER = '${SSH_USER}'
+                        scp -o StrictHostKeyChecking=no -i \$env:SSH_KEY docker-compose.yml \$env:SSH_USER@${MANAGER_IP}:/home/vagrant/deployments
+                        """
                     }
                 }
             }
