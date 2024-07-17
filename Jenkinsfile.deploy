@@ -1,8 +1,10 @@
 pipeline{
-    agent any
+    agent {
+        labels 'worker'
+    }
 
     environment{
-        MANAGER_IP = '192.168.61.55'
+        MANAGER_IP = '54.147.126.142'
     }
 
     stages{
@@ -13,21 +15,7 @@ pipeline{
                 withCredentials([sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')])
                 {
                     script{
-                        powershell """
-
-                        # Adjust the permissions of the SSH key file
-                        \$acl = Get-Acl \$env:SSH_KEY
-                        \$acl.Access | ForEach-Object { \$acl.RemoveAccessRule(\$_) }
-                        \$rule = New-Object System.Security.AccessControl.FileSystemAccessRule ("SYSTEM", "FullControl", "Allow")
-                        \$acl.SetAccessRule(\$rule)
-                        \$rule = New-Object System.Security.AccessControl.FileSystemAccessRule ("BUILTIN\\Administrators", "FullControl", "Allow")
-                        \$acl.SetAccessRule(\$rule)
-                        Set-Acl \$env:SSH_KEY \$acl
-                        
-                        \$env:SSH_KEY = '${SSH_KEY}'
-                        \$env:SSH_USER = '${SSH_USER}'
-                        scp -o StrictHostKeyChecking=no -i \$env:SSH_KEY docker-compose.yml \$env:SSH_USER@${MANAGER_IP}:/home/vagrant/deployments
-                        """
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${SSH_USER}@${MANAGER_IP}:/home/ubuntu/deployments"
                     }
                 }
             }
