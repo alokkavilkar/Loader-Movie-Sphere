@@ -1,7 +1,5 @@
 pipeline{
-    agent{
-        any
-    }
+    agent any
 
     environment{
         MANAGER_IP = '192.168.61.55'
