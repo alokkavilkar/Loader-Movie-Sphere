@@ -11,7 +11,7 @@ pipeline{
         stage("deploy")
         {
             steps{
-                withCredentials([sshUserPrivateKey(credentialsId:'ssh-key', keyFileVariable: 'SSH_KEY')])
+                withCredentials([sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY')])
                 {
                     script{
                         sh 'echo $SSH_KEY'
