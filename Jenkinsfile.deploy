@@ -1,7 +1,5 @@
 pipeline{
-    agent {
-        label 'worker'
-    }
+    agent any
 
     environment{
         MANAGER_IP = '192.168.61.55'
@@ -14,7 +12,7 @@ pipeline{
                 withCredentials([sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY')])
                 {
                     script{
-                        sh 'echo $SSH_KEY'
+                        powershell 'echo $Env:SSH_KEY'
                     }
                 }
             }
