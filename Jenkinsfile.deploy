@@ -29,15 +29,12 @@ pipeline{
         stage("deploy")
         {
             steps{
-                withCredentials([string(credentialsId:'aws-ecr-pass-private', variable: 'SECRET_TEXT')]){
+                withCredentials([string(credentialsId:'aws-ecr-pass-private', variable: 'SECRET_TEXT'), sshUserPrivateKey(credentials:'docker-swarm-id', keyFileVariable: 'SSH_KEY')]){
                     script{
-                        sh "scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${MANAGER_IP}:/home/ubuntu/docker-compose.yml"
 
-                        sh "ssh -o ScriptHostKeyChecking=no ubuntu@${MANAGER_IP}"
+                        sh "ssh -i ${SSH_KEY} -o ScriptHostKeyChecking=no ubuntu@${MANAGER_IP}"
 
                         sh "echo ${SECRET_TEST} | docker login --username AWS --password-stdin ${registry}"
-
-                        sh "ssh "
 
                     }
                 }
