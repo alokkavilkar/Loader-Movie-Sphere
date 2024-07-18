@@ -29,7 +29,7 @@ pipeline{
         stage("deploy")
         {
             steps{
-                withCredentials([string(credentialsId:'aws-ecr-pass-private', variable: 'SECRET_TEXT'), sshUserPrivateKey(credentials:'docker-swarm-id', keyFileVariable: 'SSH_KEY')]){
+                withCredentials([string(credentialsId:'aws-ecr-pass-private', variable: 'SECRET_TEXT'), sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY')]){
                     script{
 
                         sh "ssh -i ${SSH_KEY} -o ScriptHostKeyChecking=no ubuntu@${MANAGER_IP}"
