@@ -33,12 +33,11 @@ pipeline{
                     script{
                         sh "scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${MANAGER_IP}:/home/ubuntu/docker-compose.yml"
 
+                        sh "ssh -o ScriptHostKeyChecking=no ubuntu@${MANAGER_IP}"
+
                         sh "echo ${SECRET_TEST} | docker login --username AWS --password-stdin ${registry}"
 
-                        sh "ssh -oStrictHostKeyChecking=no
-                        ubuntu@${MANAGER_IP}
-                        docker stack deploy --compose-file docker-compose.yml
-                        --with-registry-auth watchlist"
+                        sh "ssh "
 
                     }
                 }
