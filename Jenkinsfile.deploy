@@ -34,9 +34,13 @@ pipeline{
 
                         
 
-                        sh """ssh -i ${SSH_KEY} ubuntu@${MANAGER_IP} \
-                        echo ${SECRET_TEXT} | docker login --username AWS --password-stdin ${registry} \
-                        sudo docker stack deploy --compose-file docker-compose.yml --with-registry-auth watchlist"""
+                        sh """
+                        ssh -i ${SSH_KEY} ubuntu@${MANAGER_IP} << EOF
+                        echo ${SECRET_TEXT} | docker login --username AWS --password-stdin ${registry}
+                        sudo docker stack deploy --compose-file docker-compose.yml --with-registry-auth watchlist
+                        EOF
+                        """
+
 
                     }
                 }
