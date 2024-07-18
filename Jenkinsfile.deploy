@@ -8,7 +8,7 @@ pipeline{
     }
 
     stages{
-        sshagent(credentials: ['docker-swarm-id']){
+        
 
         
             stage('copy')
@@ -23,13 +23,15 @@ pipeline{
                 // }
 
                 steps {
+                    sshagent(credentials: ['docker-swarm-id']){
                     script{
                             sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${SSH_USER}@${MANAGER_IP}:/home/ubuntu/deployments"
                         }
+                    }
                 }
 
             }
-        }
+        
         stage("deploy")
         {
             steps{
