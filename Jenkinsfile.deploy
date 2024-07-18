@@ -5,6 +5,7 @@ pipeline{
 
     environment{
         MANAGER_IP = '107.23.6.108'
+        
     }
 
     stages{
@@ -13,19 +14,11 @@ pipeline{
         
             stage('copy')
             {
-                // steps{
-                //     withCredentials([sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')])
-                //     {
-                //         script{
-                //             sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${SSH_USER}@${MANAGER_IP}:/home/ubuntu/deployments"
-                //         }
-                //     }
-                // }
 
                 steps {
                     sshagent(credentials: ['docker-swarm-id']){
                     script{
-                            sh "scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${MANAGER_IP}:/home/ubuntu/deployments"
+                            sh "scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${MANAGER_IP}:/home/ubuntu/docker-compose.yml"
                         }
                     }
                 }
@@ -38,7 +31,7 @@ pipeline{
                 withCredentials([sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY')])
                 {
                     script{
-                        powershell 'echo $Env:SSH_KEY'
+                        sh 'echo $Env:SSH_KEY'
                     }
                 }
             }
