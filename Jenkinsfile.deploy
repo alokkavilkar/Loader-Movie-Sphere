@@ -5,7 +5,8 @@ pipeline{
 
     environment{
         MANAGER_IP = '18.207.188.15'
-        
+        DOCKER_LOGIN = credentials('aws-ecr-pass-private')
+        registry = "058264318784.dkr.ecr.us-east-1.amazonaws.com/loader"
     }
 
     stages{
@@ -28,10 +29,17 @@ pipeline{
         stage("deploy")
         {
             steps{
-                withCredentials([sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY')])
-                {
+                withCredentials([string(credentialsId:'aws-ecr-pass-private', variable: 'SECRET_TEXT')]){
                     script{
-                        sh 'echo $Env:SSH_KEY'
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${MANAGER_IP}:/home/ubuntu/docker-compose.yml"
+
+                        sh "echo ${SECRET_TEST} | docker login --username AWS --password-stdin ${registry}"
+
+                        sh "ssh -oStrictHostKeyChecking=no
+                        ubuntu@${MANAGER_IP}
+                        docker stack deploy --compose-file docker-compose.yml
+                        --with-registry-auth watchlist"
+
                     }
                 }
             }
