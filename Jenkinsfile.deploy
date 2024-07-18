@@ -34,7 +34,7 @@ pipeline{
 
                         sh "ssh -i ${SSH_KEY} ubuntu@${MANAGER_IP}"
 
-                        sh "echo ${SECRET_TEST} | docker login --username AWS --password-stdin ${registry}"
+                        sh "echo ${SECRET_TEXT} | docker login --username AWS --password-stdin ${registry}"
 
                     }
                 }
