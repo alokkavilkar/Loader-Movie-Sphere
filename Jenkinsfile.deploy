@@ -32,7 +32,7 @@ pipeline{
                 withCredentials([string(credentialsId:'aws-ecr-pass-private', variable: 'SECRET_TEXT'), sshUserPrivateKey(credentialsId:'docker-swarm-id', keyFileVariable: 'SSH_KEY')]){
                     script{
 
-                        sh "ssh -i ${SSH_KEY} -o ScriptHostKeyChecking=no ubuntu@${MANAGER_IP}"
+                        sh "ssh -i ${SSH_KEY} ubuntu@${MANAGER_IP}"
 
                         sh "echo ${SECRET_TEST} | docker login --username AWS --password-stdin ${registry}"
 
