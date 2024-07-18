@@ -1,5 +1,5 @@
 def imageName = "alokkavilkar/unit-test"
-def buildName = "alokkavilkar/loader"
+def buildName = "loader"
 // def registry = "public.ecr.aws/l9r7x6m1"
 def private_registry = "058264318784.dkr.ecr.us-east-1.amazonaws.com"
 
@@ -51,13 +51,13 @@ node('worker'){
 
 		stage("Build"){
 			sh "docker build -t ${buildName} -f Dockerfile ."
-			sh """
+			sh "
                 docker run --rm \
                 -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
                 -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
                 -e AWS_REGION=${env.AWS_REGION} \
                 ${buildName}
-            """
+            "
 		}
 
 		stage("Push")
@@ -70,9 +70,9 @@ node('worker'){
 			// 	docker.image(buildName).push(commitID())
 			// }
 
-			sh "docker tag ${buildName} ${private_registry}/${buildName}:${env.BUILD_ID}"
+			sh "docker tag ${buildName} ${private_registry}/${buildName}:develop"
 
-			sh "docker push ${private_registry}/${buildName}:${env.BUILD_ID}"
+			sh "docker push ${private_registry}/${buildName}:develop"
 
 		}
 		// stage("Unit test"){
