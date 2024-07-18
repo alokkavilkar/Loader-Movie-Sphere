@@ -4,7 +4,7 @@ pipeline{
     }
 
     environment{
-        MANAGER_IP = '107.23.6.108'
+        MANAGER_IP = '18.207.188.15'
         
     }
 
